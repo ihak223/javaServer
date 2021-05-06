@@ -2,23 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-
-public class MSGServer {
-    public ServerSocket serverSocket;
-    public MSGServer(int port) {
-        this.serverSocket = new ServerSocket(port);
-    }
-    public void listenForConn() {
-        Socket socket = this.serverSocket.accept();
-
-    }
-    public void connection() {
-        InputStream input = socket.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-    }
-}
-
 
 public class Project implements ActionListener{
     public Project() {
@@ -45,6 +28,13 @@ public class Project implements ActionListener{
 
     public void actionPerformed(ActionEvent ae) {
         System.out.println("Action Performed "+this.actions+": "+ae.getActionCommand());
+        try {
+			MSGServer server = new MSGServer(5050);
+			System.out.println("Server Closed");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        
         this.actions ++;
     }
     public static void main(String[] args) {
